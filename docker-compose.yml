@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  sqlserver:
+    container_name: sqlserver
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1433:1433
+    environment:
+      - "ACCEPT_EULA=Y" 
+      - "MSSQL_SA_PASSWORD=@1234567890Developer"
+
+  cmd:      
+    image: busybox:latest
+    command:
+      - ssh 
+      - sqlserver
+      - '/bin/sh -c | wget "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2019.bak" > /home/backup.bak' 
+
+        #  sql_commands:
+        #    container_name: sql_commands
+        #    image: busybox:latest
+        #      #image: mcr.microsoft.com/mssql/server:2019-latest
+        #    tty: true
+        #    links: 
+        #      - sqlserver
+
+networks:
+  sqlserver:
+    name: sqlserver
