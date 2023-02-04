@@ -1,5 +1,6 @@
 {
 	"dependencies": {
+		"mssql": "^9.1.1",
 		"node-mssql": "^0.0.1",
 		"tedious": "^15.1.2"
 	}
